@@ -21,9 +21,7 @@ jobs:
 
       - name: dotnet build and publish
         run: |
-          dotnet restore
-          dotnet build --no-restore -c Release
-          dotnet publish --no-restore --no-build -c Release -o ./publish/web
+          dotnet publish -c Release -r win-x86 --no-self-contained -o ./publish/web
           cd ./publish/web && zip -r ../web.zip .
 
       - name: Azure login
@@ -31,7 +29,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: "Deploy web app"
+      - name: Deploy web app
         run: az webapp deployment source config-zip -g shiftlee -n shiftlee-image-optimizer --src ./publish/web.zip
 
       - name: Azure logout
