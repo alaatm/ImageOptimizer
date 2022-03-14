@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="10.1.0" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="10.1.0" />
+    <PackageReference Include="Magick.NET-Q16-HDRI-AnyCPU" Version="10.1.0" />
+    <PackageReference Include="Quamotion.TurboJpegWrapper" Version="2.0.21" /> 
+  </ItemGroup>
+
+	<Target Name="AssignAliasesToAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+		<ItemGroup>
+			<ReferencePath Condition="'%(FileName)' == 'Magick.NET-Q8-AnyCPU'">
+				<Aliases>MagickNET8</Aliases>
+			</ReferencePath>
+			<ReferencePath Condition="'%(FileName)' == 'Magick.NET-Q16-AnyCPU'">
+				<Aliases>MagickNET16</Aliases>
+			</ReferencePath>
+			<ReferencePath Condition="'%(FileName)' == 'Magick.NET-Q16-HDRI-AnyCPU'">
+				<Aliases>MagickNET32</Aliases>
+			</ReferencePath>
+		</ItemGroup>
+	</Target>
+</Project>

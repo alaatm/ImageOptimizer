@@ -1,0 +1,24 @@
+.DS_Store
+obj/
+bin/
+.vs/
+.build/
+artifacts/
+*.user
+TestResults/
+.idea/
+*.iml
+
+# cake build
+/tools/
+
+# build artifacts
+.coverage/
+lcov.info
+
+# Ignore auto generated properties folder in Core and Modules projects
+src/*.Core/Properties
+src/*.Modules/Properties
+
+# Test config files
+test/**/.connstrs
