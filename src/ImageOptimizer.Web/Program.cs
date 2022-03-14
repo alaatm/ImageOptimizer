@@ -6,20 +6,7 @@ app.UseHttpsRedirection();
 
 app.MapPost("/optimize", async context =>
 {
-    var bpp = 32;
     var resize = false;
-
-    if (context.Request.Query.TryGetValue("bpp", out var bppQueryString))
-    {
-        if (!int.TryParse(bppQueryString, out var bppParsedValue))
-        {
-            context.Response.StatusCode = 400;
-            await context.Response.Body.WriteAsync(GetTextBytes("Invalid bpp query string value. Must be any of the following: 8, 16, 32."));
-            return;
-        }
-
-        bpp = bppParsedValue;
-    }
 
     if (context.Request.Query.TryGetValue("resize", out var resizeQueryString))
     {
@@ -42,7 +29,7 @@ app.MapPost("/optimize", async context =>
 
     var stopwatch = ValueStopwatch.StartNew();
 
-    if (await Optimizer.OptimizeAsync(bpp, resize, context.Request.Form.Files[0].OpenReadStream()) is not Stream optimizedImage)
+    if (await Optimizer.OptimizeAsync(resize, context.Request.Form.Files[0].OpenReadStream()) is not Stream optimizedImage)
     {
         context.Response.StatusCode = 400;
         await context.Response.Body.WriteAsync(GetTextBytes("Could not read input image."));
