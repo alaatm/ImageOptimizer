@@ -21,7 +21,7 @@ jobs:
 
       - name: dotnet build and publish
         run: |
-          dotnet publish -c Release -o ./publish/web
+          dotnet publish -c Release -r win-x64 --no-self-contained -o ./publish/web
           cd ./publish/web && zip -r ../web.zip .
 
       - name: Azure login
