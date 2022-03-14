@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup .NET Core
+      - name: Setup .net
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
@@ -26,9 +26,13 @@ jobs:
           dotnet publish --no-restore --no-build -c Release -o ./publish/web
           cd ./publish/web && zip -r ../web.zip .
 
-      - name: "Run Azure webapp deploy action using publish profile credentials"
-        uses: azure/webapps-deploy@v2
+      - name: Azure login
+        uses: azure/login@v1
         with:
-          app-name: shiftlee-image-optimizer
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }}
-          package: "./publish/web.zip"
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: "Deploy web app"
+        run: az webapp deployment source config-zip -g shiftlee -n shiftlee-image-optimizer --src ./publish/web.zip
+
+      - name: Azure logout
+        run: az logout
