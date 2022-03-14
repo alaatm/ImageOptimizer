@@ -8,6 +8,10 @@ on:
     branches:
       - master
 
+env:
+  APP_NAME: shiftlee-image-optimizer
+  RESOURCE_GROUP: shiftlee
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -21,7 +25,7 @@ jobs:
 
       - name: dotnet build and publish
         run: |
-          dotnet publish -c Release -r win-x64 --no-self-contained -o ./publish/web
+          dotnet publish -c Release -o ./publish/web
           cd ./publish/web && zip -r ../web.zip .
 
       - name: Azure login
@@ -30,7 +34,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy web app
-        run: az webapp deployment source config-zip -g shiftlee -n shiftlee-image-optimizer --src ./publish/web.zip
+        run: az webapp deployment source config-zip -g ${{ RESOURCE_GROUP }} -n ${{ APP_NAME }} --src ./publish/web.zip
 
       - name: Azure logout
         run: az logout
