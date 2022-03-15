@@ -3,6 +3,10 @@ using ImageOptimizer;
 var app = WebApplication.CreateBuilder(args).Build();
 app.UseHttpsRedirection();
 
+const int DefaultOptimizedWidth = 960;
+const int DefaultThumbnailWidth = 150;
+const int DefaultQuality = 70;
+
 app.MapPost("/optimize", async context =>
 {
     if (!context.IsValidKey())
@@ -11,13 +15,13 @@ app.MapPost("/optimize", async context =>
         return;
     }
 
-    if (!context.TryGetQueryValue("maxWidth", 960, out var maxWidth))
+    if (!context.TryGetQueryValue("maxWidth", DefaultOptimizedWidth, out var maxWidth))
     {
         await context.SetErrorAsync(400, "Invalid maxWidth value. Must be an integer greater than zero.");
         return;
     }
 
-    if (!context.TryGetQueryValue("quality", 70, out var quality) || quality is < 1 or > 100)
+    if (!context.TryGetQueryValue("quality", DefaultQuality, out var quality) || quality is < 1 or > 100)
     {
         await context.SetErrorAsync(400, "Invalid quality value. Must be an integer between 1 and 100.");
         return;
@@ -44,7 +48,7 @@ app.MapPost("/thumbnail", async context =>
         return;
     }
 
-    if (!context.TryGetQueryValue("maxWidth", 150, out var maxWidth) || maxWidth is not (75 or 150 or 200))
+    if (!context.TryGetQueryValue("maxWidth", DefaultThumbnailWidth, out var maxWidth) || maxWidth is not (75 or 150 or 200))
     {
         await context.SetErrorAsync(400, "Invalid maxWidth value. Must be 75, 150 or 200.");
         return;
