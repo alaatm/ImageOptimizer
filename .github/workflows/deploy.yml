@@ -1,7 +1,6 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 
-name: Build and deploy ASP.Net Core app to Azure Web App - shiftlee-image-optimizer
+name: Build and deploy
 
 on:
   push:
@@ -23,18 +22,18 @@ jobs:
         with:
           dotnet-version: 6.0.x
 
-      - name: dotnet build and publish
+      - name: Build & publish
         run: |
-          dotnet publish -c Release -o ./publish/web
-          cd ./publish/web && zip -r ../web.zip .
+          dotnet publish -c Release -o ./.publish/web
+          cd ./.publish/web && zip -r ../web.zip .
 
       - name: Azure login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy web app
-        run: az webapp deployment source config-zip -g $RESOURCE_GROUP -n $APP_NAME --src ./publish/web.zip
+      - name: Azure deploy
+        run: az webapp deployment source config-zip -g $RESOURCE_GROUP -n $APP_NAME --src ./.publish/web.zip
 
       - name: Azure logout
         run: az logout

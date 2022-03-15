@@ -16,6 +16,9 @@ TestResults/
 .coverage/
 lcov.info
 
+#publish folders
+.publish/
+
 # Ignore auto generated properties folder in Core and Modules projects
 src/*.Core/Properties
 src/*.Modules/Properties
