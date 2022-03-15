@@ -4,8 +4,8 @@ name: Build and deploy
 
 on:
   push:
-    branches: [master]
-    tags: ["*"]
+    tags:
+      - "*"
 
 env:
   APP_NAME: shiftlee-image-optimizer
