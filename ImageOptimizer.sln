@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B046F9CE-64F6-4E17-94E6-45A8CE51A0BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageOptimizer.Web", "src\ImageOptimizer.Web\ImageOptimizer.Web.csproj", "{14EA3078-B656-4134-AC40-538829191CA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageOptimizer", "src\ImageOptimizer\ImageOptimizer.csproj", "{14EA3078-B656-4134-AC40-538829191CA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
