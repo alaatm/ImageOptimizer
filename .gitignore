@@ -25,3 +25,5 @@ src/*.Modules/Properties
 
 # Test config files
 test/**/.connstrs
+
+azp.md
