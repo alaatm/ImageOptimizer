@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - master
+    tags:
+      - "*"
 
 env:
   APP_NAME: shiftlee-image-optimizer
