@@ -1,6 +1,9 @@
 using ImageOptimizer;
 
-var app = WebApplication.CreateBuilder(args).Build();
+var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.ConfigureKestrel(p => p.AddServerHeader = false);
+
+var app = builder.Build();
 app.UseHttpsRedirection();
 
 const int DefaultOptimizedWidth = 960;
