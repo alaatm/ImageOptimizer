@@ -17,18 +17,6 @@ public static class Optimizer
         }
     }
 
-    public static async Task<MemoryStream?> GenerateThumbnail(Stream input, int maxWidth)
-    {
-        try
-        {
-            return await ConvertToJpeg(input, maxWidth);
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
     private static async Task<MemoryStream> ConvertToJpeg(Stream stream, int maxWidth)
     {
         using var image = new MagickImage(stream);
